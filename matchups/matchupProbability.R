@@ -1,12 +1,12 @@
-# Examination of using log5 and logistic regression to predict outcome of 
+# Examination of using log5 and logistic regression to predict outcome of
 # matchups between a given pitcher and batter. Initially uses the averages for
 # each player, but more complex models are also evaluated using additional
 # factors
 ##########
 
-source('globals.R')
-source('util.R')
-source('analysis.R')
+#source('globals.R')
+#source('util.R')
+#source('analysis.R')
 
 # Load the play-by-play data
 play_by_play = read.csv('playByPlay.csv')
@@ -27,23 +27,23 @@ train_data = play_by_play[train_rows,]
 test_data = play_by_play[-train_rows,]
 
 # Log5 model with perfect knowledge of season averages
-eval.log5 = evaluateModel(train_data, test_data, 
-                          'batterAvg', 'pitcherAvg', 'lgAvg', 
+eval.log5 = evaluateModel(train_data, test_data,
+                          'batterAvg', 'pitcherAvg', 'lgAvg',
                           model=log5Prediction)
 
 # GLM with perfect knowledge of season averages
-eval.glm = evaluateModel(train_data, test_data, 
-                         'batterAvg', 'pitcherAvg', 'lgAvg', 
+eval.glm = evaluateModel(train_data, test_data,
+                         'batterAvg', 'pitcherAvg', 'lgAvg',
                          model=glmPrediction)
 
 # Log5 model with forecasted season averages
-eval.log5_fc = evaluateModel(train_data, test_data, 
-                             'batterForecast', 'pitcherForecast', 'leagueForecast', 
+eval.log5_fc = evaluateModel(train_data, test_data,
+                             'batterForecast', 'pitcherForecast', 'leagueForecast',
                              model=log5Prediction)
 
 # GLM with forecasted season averages
-eval.glm_fc = evaluateModel(train_data, test_data, 
-                            'batterForecast', 'pitcherForecast', 'leagueForecast', 
+eval.glm_fc = evaluateModel(train_data, test_data,
+                            'batterForecast', 'pitcherForecast', 'leagueForecast',
                             model=glmPrediction)
 
 # Compare Brier Score between models
