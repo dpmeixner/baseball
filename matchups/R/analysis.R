@@ -98,7 +98,7 @@ previousYearForecast <- function(play_by_play, group) {
 #'
 #' @param play_by_play The dataset to which the averages will be added
 #'
-#' @return
+#' @return NULL
 #' @importFrom dplyr inner_join rename
 #' @export
 addForecast <- function(play_by_play) {
@@ -113,6 +113,9 @@ addForecast <- function(play_by_play) {
     inner_join(pitcher_season_avg, by=c('pitcher', 'year')) %>%
     inner_join(league_season_avg, by=c('year')) %>%
     rename(batterForecast = x.x, pitcherForecast = x.y, leagueForecast = x)
+
+  #Return nothing
+  return(invisible())
 }
 
 #' Graphically evaluate a forecast
@@ -123,7 +126,7 @@ addForecast <- function(play_by_play) {
 #' @param play_by_play The dataset containing actual and predicted values for an
 #'   event
 #'
-#' @return
+#' @return NULL
 #' @importFrom dplyr distinct
 #' @importFrom ggplot2 ggplot geom_point aes arrow unit scale_x_continuous ylab
 #'   scale_x_continuous scale_colour_manual qplot stat_smooth geom_abline
@@ -164,6 +167,9 @@ evaluateForecast <- function(play_by_play) {
               col='blue', parse=TRUE)
 
   grid.arrange(p1, p2, nrow=1)
+
+  #Return nothing
+  return(invisible())
 }
 
 #' Evaluate matchup models
@@ -200,7 +206,7 @@ evaluateModel <- function(train_data, test_data, x, y, z, model) {
 #' @param model_list A list of objects with a $brierscore attribute
 #' @param bs_ref The reference brier score
 #'
-#' @return
+#' @return NULL
 #' @export
 printBrierSummary <- function(model_list, bs_ref) {
   brier_summary = cbind(sapply(model_list, "[[", 'brierscore'))
@@ -208,16 +214,22 @@ printBrierSummary <- function(model_list, bs_ref) {
   colnames(brier_summary) = c( 'Brier Score', 'Skill Score')
   rownames(brier_summary) = c('log5','glm','log5_fc','glm_fc')
   print(brier_summary)
+
+  #Return nothing
+  return(invisible())
 }
 
 #' Print summary of coefficients
 #'
 #' @param model_list A list of objects with $coefficieints attribute
 #'
-#' @return
+#' @return NULL
 #' @export
 printCoefSummary <- function(model_list) {
   coef_summary = t(sapply(model_list, "[[", 'coefficients'))
   rownames(coef_summary) = c('log5','glm','log5_fc','glm_fc')
   print(coef_summary)
+
+  #Return nothing
+  return(invisible())
 }

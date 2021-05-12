@@ -10,9 +10,6 @@ evaluateForecast(play_by_play)
 \item{play_by_play}{The dataset containing actual and predicted values for an
 event}
 }
-\value{
-
-}
 \description{
 Plots the predicted vs. actual values to visually see how well
   the model performed.

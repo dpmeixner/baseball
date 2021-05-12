@@ -1,8 +1,4 @@
-library(dplyr, quietly=TRUE)
-library(ggplot2, quietly=TRUE)
-library(gridExtra, quietly=TRUE)
-library(verification, quietly=TRUE)
-library(DescTools)
+# A set of global variables
 
 # The years to evaluate
 START_YEAR = 2010

@@ -1,28 +1,28 @@
-#' Title
+#' Average by group
 #'
-#' @param play_by_play
-#' @param group
+#' @param play_by_play the data frame to get averages (means) from
+#' @param group the columns to group together for the average (mean)
 #'
-#' @return
+#' @return NULL
 #' @importFrom stats aggregate
 #' @export
-#'
-#' @examples
 groupAvg <- function(play_by_play, group) {
   return(aggregate(play_by_play$eventType == EVENT_K,
                    as.list(play_by_play[group]),
                    mean))
+
+  #Return nothing
+  return(invisible())
 }
 
-#' Title
+#' Add averages
 #'
-#' @param data_set
+#' @param data_set the data frame to add averages to
 #'
-#' @return
+#' @return the same data_set with averages added for pitchers, batters, and
+#' league
 #' @importFrom dplyr "%>%" count inner_join rename
 #' @export
-#'
-#' @examples
 addAverages <- function(data_set) {
   # Get number of PAs for batters and pitchers to filter out low use players
   batter_pa_cnt = data_set %>% count(batter, year, name = 'batterPA')

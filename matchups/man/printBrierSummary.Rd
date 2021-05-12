@@ -11,9 +11,6 @@ printBrierSummary(model_list, bs_ref)
 
 \item{bs_ref}{The reference brier score}
 }
-\value{
-
-}
 \description{
 Print summary of Brier Scores
 }

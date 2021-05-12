@@ -2,16 +2,15 @@
 % Please edit documentation in R/util.R
 \name{groupAvg}
 \alias{groupAvg}
-\title{Title}
+\title{Average by group}
 \usage{
 groupAvg(play_by_play, group)
 }
 \arguments{
-\item{group}{}
-}
-\value{
+\item{play_by_play}{the data frame to get averages (means) from}
 
+\item{group}{the columns to group together for the average (mean)}
 }
 \description{
-Title
+Average by group
 }

@@ -2,16 +2,17 @@
 % Please edit documentation in R/util.R
 \name{addAverages}
 \alias{addAverages}
-\title{Title}
+\title{Add averages}
 \usage{
 addAverages(data_set)
 }
 \arguments{
-\item{data_set}{}
+\item{data_set}{the data frame to add averages to}
 }
 \value{
-
+the same data_set with averages added for pitchers, batters, and
+league
 }
 \description{
-Title
+Add averages
 }

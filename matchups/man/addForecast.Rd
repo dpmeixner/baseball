@@ -9,9 +9,6 @@ addForecast(play_by_play)
 \arguments{
 \item{play_by_play}{The dataset to which the averages will be added}
 }
-\value{
-
-}
 \description{
 Adds a forecast based on the previous year's values
 }

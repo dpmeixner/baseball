@@ -9,9 +9,6 @@ printCoefSummary(model_list)
 \arguments{
 \item{model_list}{A list of objects with $coefficieints attribute}
 }
-\value{
-
-}
 \description{
 Print summary of coefficients
 }
