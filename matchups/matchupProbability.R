@@ -8,8 +8,32 @@
 #source('util.R')
 #source('analysis.R')
 
+# Load the data from the database
+queryDB <- function(query) {
+  mydb = dbConnect(MySQL(), user='user', password='password', dbname='mlb',
+                   host='127.0.0.1')
+  rs = dbSendQuery(mydb, query)
+  res = dbFetch(rs, n=-1)
+  dbClearResult(rs)
+  dbDisconnect(mydb)
+  return(res)
+}
+
+loadRetrosheetData <- function() {
+  play_by_play = queryDB(sprintf("SELECT *
+                                 FROM PlayByPlay
+                                 WHERE SUBSTR(gameId,4,4)
+                                 BETWEEN %s AND %s",
+                                 START_YEAR, END_YEAR))
+  play_by_play$year = as.integer(substr(play_by_play$gameId, 4, 7))
+
+  # Filter on only plate apperances and features needed for this model
+  columns = c('gameId', 'year', 'batter', 'batterHand', 'pitcher', 'pitcherHand', 'eventType')
+  play_by_play = play_by_play[play_by_play$eventType %in% EVENT_PA, columns]
+}
+
 # Load the play-by-play data
-play_by_play = read.csv('playByPlay.csv')
+play_by_play <- read.csv(unz("playByPlay.zip", "playByPlay.csv"))
 
 # Calculate season averages for players and league
 play_by_play = addAverages(play_by_play)

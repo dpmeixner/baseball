@@ -21,3 +21,6 @@ EVENT_NON_PA = c(4, 6, 8, 9, 10, 12) # SB, CS, PO, WP, Passed Ball, Other
 
 # Events that correspond to a plate apperance
 EVENT_PA = unique(c(EVENT_OUT, EVENT_HIT, EVENT_WALK, EVENT_K, EVENT_OTHER))
+
+globalVariables(c('batter', 'pitcher', 'year', 'x', 'x.x', 'x.y',
+                  'leagueForecast', 'lgAvg'))

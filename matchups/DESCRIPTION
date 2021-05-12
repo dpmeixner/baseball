@@ -1,14 +1,26 @@
 Package: matchups
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Predict Event Outcomes for Baseball
+Version: 0.1.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "David",
+           family = "Meixner",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = structure("YOUR-ORCID-ID", .Names = "ORCID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "dpmeixner@gmail.com")
+Description: This package compares models that are used to predict the outcome 
+  of an event in baseball. Specifically, it examines the strikeout probability 
+  between batters and pitchers, but could be easily extended to other events 
+  (team win probabilities, home run probabilities, etc.) It currently examines 
+  the log5 model developed by Bill James, and compares that with a logistic 
+  regression model. Again, other models could be easily added that take on the 
+  form E = c0*X + c1*Y + c2*Z, where E is the predicted probability of that 
+  outcome given inputs from factors X and Y and Z is the population average.
+License: MIT + file LICENSE
+Imports:
+  dplyr,
+  ggplot2,
+  gridExtra,
+  verification,
+  DescTools
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
