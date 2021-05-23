@@ -9,6 +9,9 @@ addForecast(play_by_play)
 \arguments{
 \item{play_by_play}{The dataset to which the averages will be added}
 }
+\value{
+the input data frame play_by_play with the forecast added
+}
 \description{
 Adds a forecast based on the previous year's values
 }

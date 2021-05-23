@@ -98,7 +98,7 @@ previousYearForecast <- function(play_by_play, group) {
 #'
 #' @param play_by_play The dataset to which the averages will be added
 #'
-#' @return NULL
+#' @return the input data frame play_by_play with the forecast added
 #' @importFrom dplyr inner_join rename
 #' @export
 addForecast <- function(play_by_play) {
@@ -114,8 +114,7 @@ addForecast <- function(play_by_play) {
     inner_join(league_season_avg, by=c('year')) %>%
     rename(batterForecast = x.x, pitcherForecast = x.y, leagueForecast = x)
 
-  #Return nothing
-  return(invisible())
+  return(data_set)
 }
 
 #' Graphically evaluate a forecast
@@ -154,7 +153,9 @@ evaluateForecast <- function(play_by_play) {
     geom_abline(slope=1, intercept=0, col='red') +
     geom_text(aes(x=.37, y=.4, label='x=y'), col='red') +
     geom_text(aes(x=.35, y=.28, label=as.character(as.expression(batter_lbl))),
-              col='blue', parse=TRUE)
+              col='blue', parse=TRUE) +
+    xlab('Batter Average Previous Year') +
+    ylab('Batter Average Current Year')
 
   pitcherAvgs = distinct(play_by_play[c('pitcherForecast', 'pitcherAvg')])
   r2 = summary(lm(pitcherAvgs))$r.squared
@@ -164,7 +165,9 @@ evaluateForecast <- function(play_by_play) {
     geom_abline(slope=1, intercept=0, col='red') +
     geom_text(aes(x=.37, y=.4, label='x=y'), col='red') +
     geom_text(aes(x=.35, y=.27, label=as.character(as.expression(pitcher_lbl))),
-              col='blue', parse=TRUE)
+              col='blue', parse=TRUE) +
+    xlab('Pitcher Average Previous Year') +
+    ylab('Pitcher Average Current Year')
 
   grid.arrange(p1, p2, nrow=1)
 

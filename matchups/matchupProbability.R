@@ -8,6 +8,12 @@
 #source('util.R')
 #source('analysis.R')
 
+# Needed for BrierScore()
+libary(DescTools)
+
+# retrosheet code for strikeouts
+EVENT_K = 3
+
 # Load the data from the database
 queryDB <- function(query) {
   mydb = dbConnect(MySQL(), user='user', password='password', dbname='mlb',
@@ -33,7 +39,7 @@ loadRetrosheetData <- function() {
 }
 
 # Load the play-by-play data
-play_by_play <- read.csv(unz("playByPlay.zip", "playByPlay.csv"))
+play_by_play <- read.csv(unz("retrosheet_data/playByPlay.zip", "playByPlay.csv"))
 
 # Calculate season averages for players and league
 play_by_play = addAverages(play_by_play)
@@ -82,8 +88,18 @@ printBrierSummary(list(eval.log5, eval.glm, eval.log5_fc, eval.glm_fc), bs_ref)
 printCoefSummary(list(eval.log5, eval.glm, eval.log5_fc, eval.glm_fc))
 
 # Display verficiation graphs to visualize how well models perform
+# This was also done as part of evaluateModel()
 reliability.plot(eval.log5$verification, titl='Log5 Model', legend.names='')
 reliability.plot(eval.glm$verification, titl='GLM Model', legend.names='')
 reliability.plot(eval.log5_fc$verification, titl='Log5 Forecast', legend.names='')
 reliability.plot(eval.glm_fc$verification, titl='GLM Forecast', legend.names='')
 
+# Get top 20 batter/pitcher matchups
+m = play_by_play %>%
+  group_by(batter, pitcher, batterAvg, pitcherAvg, lgAvg) %>%
+  summarize(
+    m_cnt = n(),
+    evtAvg = mean(eventType==EVENT_K)
+  )
+m = data.frame(m[order(m$m_cnt, decreasing=TRUE),])
+m$log5_pred = log5Prediction(m, m, 'pitcherAvg', 'batterAvg', 'leagueAvg')

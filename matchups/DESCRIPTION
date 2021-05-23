@@ -16,6 +16,7 @@ Description: This package compares models that are used to predict the outcome
   outcome given inputs from factors X and Y and Z is the population average.
 License: MIT + file LICENSE
 Imports:
+  stats,
   dplyr,
   ggplot2,
   gridExtra,
